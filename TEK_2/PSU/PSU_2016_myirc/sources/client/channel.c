@@ -1,0 +1,58 @@
+/*
+** funct_channel.c for funct_channel in /home/raphael.dusautoy/rendus/myirc/client
+** 
+** Made by Raphael Dusautoy
+** Login   <raphael.dusautoy@epitech.net>
+** 
+** Started on  Sun Jun  4 14:51:03 2017 Raphael Dusautoy
+** Last update Sun Jun 11 23:28:02 2017 Raphaël Ghikh
+*/
+
+#include	"client.h"
+
+int		list_channel(char **argv, t_client *client)
+{
+  char		*tmp;
+
+  tmp = malloc(sizeof(char) * 512);
+  strcpy(tmp, "LIST ");
+  if (argv[1] != NULL)
+    strcat(tmp, argv[1]);
+  strcat(tmp, "\r\n");
+  client->toServer = tmp;
+  return (0);
+}
+
+int		join_channel(char **argv, t_client *client)
+{
+  char		*tmp;
+
+  if (argv[1] != NULL)
+    {
+      tmp = malloc(sizeof(char) * 512);
+      strcpy(tmp, "JOIN ");
+      strcat(tmp, argv[1]);
+      strcat(tmp, "\r\n");
+      client->toServer = tmp;
+    }
+  else
+    client->toClient = my_putstr("Incorect number of arguments");
+  return (0);
+}
+
+int		part_channel(char **argv, t_client *client)
+{
+  char		*tmp;
+
+  if (argv[1] != NULL)
+    {
+      tmp = malloc(sizeof(char) * 512);
+      strcpy(tmp, "PART ");
+      strcat(tmp, argv[1]);
+      strcat(tmp, "\r\n");
+      client->toServer = tmp;
+    }
+  else
+    client->toClient = my_putstr("Incorect number of arguments");
+  return (0);
+}
